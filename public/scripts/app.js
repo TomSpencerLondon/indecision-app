@@ -1,8 +1,20 @@
 "use strict";
 
-console.log("App.js is running!");
+var app = {
+  title: "Indecision App",
+  subtitle: "An application to help you with difficult decisions",
+  options: ["One", "Two"]
+};
 
-// JSX JavaScript XML
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
+
+  var option = e.target.elements.option.value;
+  if (option) {
+    app.options.push(option);
+    e.target.elements.option.value = "";
+  }
+};
 
 var template = React.createElement(
   "div",
@@ -10,12 +22,17 @@ var template = React.createElement(
   React.createElement(
     "h1",
     null,
-    "Indecision App"
+    app.title
+  ),
+  app.subtitle && React.createElement(
+    "p",
+    null,
+    app.subtitle
   ),
   React.createElement(
     "p",
     null,
-    "This is some info"
+    app.options.length > 0 ? "Here are your options" : "No options"
   ),
   React.createElement(
     "ol",
@@ -30,32 +47,19 @@ var template = React.createElement(
       null,
       "Element Two"
     )
-  )
-);
-
-var templateTwo = React.createElement(
-  "div",
-  null,
-  React.createElement(
-    "h1",
-    null,
-    "Tom Spencer"
   ),
   React.createElement(
-    "p",
-    null,
-    "Age: 39"
-  ),
-  React.createElement(
-    "p",
-    null,
-    "Location: Brighton"
+    "form",
+    { onSubmit: onFormSubmit },
+    React.createElement("input", { type: "text", name: "option" }),
+    React.createElement(
+      "button",
+      null,
+      "Add option"
+    )
   )
 );
-
-// Create a templateTwo variable (JSX expression)
-// div h1 -> Tom Spencer p -> age: p -> location: render templateTwo instead of template
 
 var appRoot = document.getElementById('app');
 
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);

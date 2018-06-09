@@ -1,30 +1,37 @@
-console.log("App.js is running!");
+const app = {
+  title: "Indecision App", 
+  subtitle: "An application to help you with difficult decisions",
+  options: ["One", "Two"]
+}
 
+const onFormSubmit = (e) => {
+  e.preventDefault();
 
-// JSX JavaScript XML
+  const option = e.target.elements.option.value;
+  if(option){
+    app.options.push(option);
+    e.target.elements.option.value = "";
+  }
+}
 
-var template = (
+const template = (
 <div>
-  <h1>Indecision App</h1>
-  <p>This is some info</p>
+  <h1>{ app.title }</h1>
+  { app.subtitle && <p>{app.subtitle}</p> }
+  <p>{ app.options.length > 0 ? "Here are your options" : "No options"}</p>
   <ol>
     <li>Element One</li>
     <li>Element Two</li>
   </ol>
+  <form onSubmit={onFormSubmit}>
+    <input type="text" name="option" />
+    <button>
+      Add option
+    </button>
+  </form>
 </div>
 );
 
-var templateTwo = (
-  <div>
-    <h1>Tom Spencer</h1>
-    <p>Age: 39</p>
-    <p>Location: Brighton</p>
-  </div>
-)
+const appRoot = document.getElementById('app')
 
-// Create a templateTwo variable (JSX expression)
-// div h1 -> Tom Spencer p -> age: p -> location: render templateTwo instead of template
-
-var appRoot = document.getElementById('app')
-
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);
