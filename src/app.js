@@ -1,7 +1,7 @@
 const app = {
   title: "Indecision App", 
   subtitle: "An application to help you with difficult decisions",
-  options: ["One", "Two"]
+  options: []
 }
 
 const onFormSubmit = (e) => {
@@ -11,27 +11,69 @@ const onFormSubmit = (e) => {
   if(option){
     app.options.push(option);
     e.target.elements.option.value = "";
+    renderIndecisionApp();
   }
+};
+
+const onRemoveAll = () => {
+  app.options = []
+  renderIndecisionApp();
 }
 
-const template = (
-<div>
-  <h1>{ app.title }</h1>
-  { app.subtitle && <p>{app.subtitle}</p> }
-  <p>{ app.options.length > 0 ? "Here are your options" : "No options"}</p>
-  <ol>
-    <li>Element One</li>
-    <li>Element Two</li>
-  </ol>
-  <form onSubmit={onFormSubmit}>
-    <input type="text" name="option" />
-    <button>
-      Add option
-    </button>
-  </form>
-</div>
-);
+const optionsList = () => {
+  return app.options.map((item) => <li>{item}</li>) 
+}
 
-const appRoot = document.getElementById('app')
+// Create remove all button above list 
+// onClick -> wipe the array -> rerender
 
-ReactDOM.render(template, appRoot);
+
+const appRoot = document.getElementById('app');
+
+const numbers = [99, 55, 1000];
+
+const renderIndecisionApp = () => {
+
+  const template = (
+    <div>
+      <h1>{ app.title }</h1>
+      { app.subtitle && <p>{app.subtitle}</p> }
+    
+      <p>{ app.options.length > 0 ? "Here are your options" : "No options"}</p>
+      <p>{app.options.length}</p>
+      <button onClick={onRemoveAll}>
+      Remove all
+      </button>
+
+        { /*
+          numbers.map((number) => {
+            return <p key={number}>Number: {number} </p>
+          */ });
+        }
+      <ol>
+      { /*  Map over app.options getting back and array of lis (set key and text) */
+        app.options.map((option) => {
+          return <li key={option}>Option: {option}</li>
+        });
+      }
+      </ol>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="option" />
+        <button>
+          Add option
+        </button>
+      </form>
+    </div>
+    );
+    
+    ReactDOM.render(template, appRoot);
+
+}
+
+
+
+// create a render function that renders the new jsx 
+// Call it right away
+// Call it after the options array is added to
+
+renderIndecisionApp();
