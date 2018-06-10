@@ -45,16 +45,16 @@ const renderIndecisionApp = () => {
       Remove all
       </button>
 
-        { /*
+        {/*
           numbers.map((number) => {
             return <p key={number}>Number: {number} </p>
-          */ });
-        }
+          */ }
+        
       <ol>
       { /*  Map over app.options getting back and array of lis (set key and text) */
         app.options.map((option) => {
           return <li key={option}>Option: {option}</li>
-        });
+        })
       }
       </ol>
       <form onSubmit={onFormSubmit}>
