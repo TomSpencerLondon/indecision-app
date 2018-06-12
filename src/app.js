@@ -24,6 +24,12 @@ const optionsList = () => {
   return app.options.map((item) => <li>{item}</li>) 
 }
 
+const onMakeDecision = () => {
+  const randomNumber = Math.floor(Math.random() * app.options.length);
+  const option = app.options[randomNumber];
+  alert(option);
+}; 
+
 // Create remove all button above list 
 // onClick -> wipe the array -> rerender
 
@@ -40,21 +46,15 @@ const renderIndecisionApp = () => {
       { app.subtitle && <p>{app.subtitle}</p> }
     
       <p>{ app.options.length > 0 ? "Here are your options" : "No options"}</p>
-      <p>{app.options.length}</p>
+      <button disabled={app.options.length === 0} onClick={onMakeDecision}>What should I do?</button>
+      
       <button onClick={onRemoveAll}>
       Remove all
       </button>
-
-        {/*
-          numbers.map((number) => {
-            return <p key={number}>Number: {number} </p>
-          */ }
         
       <ol>
       { /*  Map over app.options getting back and array of lis (set key and text) */
-        app.options.map((option) => {
-          return <li key={option}>Option: {option}</li>
-        })
+        app.options.map((option) => <li key={option}>{option}</li>)
       }
       </ol>
       <form onSubmit={onFormSubmit}>
