@@ -37,8 +37,34 @@ class Student extends Person {
   }
 }
 
-const me = new Student("Tom Spencer", 40, "Computer Science");
-console.log(me.getDescription()); 
+class Traveller extends Person {
+  constructor(name, age, homeLocation){
+    super(name, age);
+    this.homeLocation = homeLocation;
+  }
 
-const other = new Student();
-console.log(other.getDescription());
+  hasHomeLocation(){
+    return !!this.homeLocation;
+  }
+
+  getGreeting(){
+    let getGreeting = super.getGreeting(); 
+
+    if(this.hasHomeLocation()){
+      getGreeting += ` I am visiting from ${this.homeLocation}`
+    }
+
+    return getGreeting;
+  }
+}
+
+// Traveller extend person class. Add support for homeLocation.
+// Over-ride getGreeting 
+// 1. If homeLocation - super + visiting from Philadelphia
+// 2. If no homeLocation just getGreeting: Hi I am Andrew Mead.
+
+const me = new Traveller("Tom Spencer", 40, "San Francisco");
+console.log(me.getGreeting()); 
+
+const other = new Traveller(undefined, undefined, "Nowhere");
+console.log(other.getGreeting());
